@@ -61,7 +61,7 @@ export const invokeExchange: (name: string) => Exchange =
           }
 
           const command = `plugin:${name}|graphql`
-
+	/*
           console.debug({
             type: 'invokeRequest',
             message: 'An invoke request is being executed.',
@@ -70,12 +70,12 @@ export const invokeExchange: (name: string) => Exchange =
               command,
               args
             }
-          })
+          })*/
 
           return pipe(
             makeInvokeSource(operation, command, args),
             takeUntil(teardown$),
-            onPush(result => {
+            /*onPush(result => {
               const error = !result.data ? result.error : undefined
 
               console.debug({
@@ -88,7 +88,7 @@ export const invokeExchange: (name: string) => Exchange =
                   value: error || result
                 }
               })
-            })
+            })*/
           )
         })
       )
@@ -123,7 +123,7 @@ function makeInvokeSource(
         const [body] = response!
         const payload: ExecutionResult = JSON.parse(body)
 
-        console.debug(response)
+        //console.debug(response)
 
         next(makeResult(operation, payload))
       })
